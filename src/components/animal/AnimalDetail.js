@@ -6,11 +6,11 @@ import "./Animals.css"
 
 export const AnimalDetails = () => {
     const [animal, setAnimal] = useState({ location: {}, customer: {} })
-    const { animalId } = useParams()
+    const { animal_id } = useParams()
     const history = useHistory()
     
     useEffect(() => {
-        getAnimalById(animalId)
+        getAnimalById(animal_id)
             .then(setAnimal)
     }, [])
 
@@ -20,7 +20,7 @@ export const AnimalDetails = () => {
             <div className="animal__breed">{animal.breed}</div>
             <div className="animal__location">Location: {animal.location?.name}</div>
             <div className="animal__owner">Customer: {animal.customer?.name}</div>
-            <div className="animal__treatment">Treatment: {animal.treatment}</div>
+            <div className="animal__status">status: {animal.status}</div>
 
             <button onClick={() => releaseAnimal(animal.id).then(() => history.push("/animals"))} >Release Animal</button>
 
