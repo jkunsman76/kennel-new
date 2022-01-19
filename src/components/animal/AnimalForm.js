@@ -6,13 +6,13 @@ import { useParams, useHistory } from 'react-router-dom'
 export const AnimalForm = () => {
     // Use the required context providers for data
     const [ locations, setLocations ] = useState([])
-    const { animalId } = useParams()
+    const { animal_id } = useParams()
     // Component state
     const [animal, setAnimal] = useState({})
     const history = useHistory()
 
     // Is there a a URL parameter??
-    const editMode = animalId ? true : false  // true or false
+    const editMode = animal_id ? true : false  // true or false
 
     const handleControlledInputChange = (event) => {
         /*
@@ -27,7 +27,7 @@ export const AnimalForm = () => {
     // Get animals from API when component initializes
     useEffect(() => {
         if (editMode) {
-            getAnimalById(animalId).then((res) => {
+            getAnimalById(animal_id).then((res) => {
                 setAnimal(res)
             })
         }
@@ -35,9 +35,9 @@ export const AnimalForm = () => {
     }, [])
 
     const constructNewAnimal = () => {
-        const locationId = parseInt(animal.locationId)
+        const location_id = parseInt(animal.location_id)
 
-        if (locationId === 0) {
+        if (location_id === 0) {
             window.alert("Please select a location")
         } else {
             if (editMode) {
@@ -46,9 +46,9 @@ export const AnimalForm = () => {
                     id: animal.id,
                     name: animal.name,
                     breed: animal.breed,
-                    locationId: locationId,
-                    treatment: animal.treatment,
-                    customerId: parseInt(localStorage.getItem("kennel_customer"))
+                    location_id: location_id,
+                    status: animal.status,
+                    customer_id: parseInt(localStorage.getItem("kennel_customer"))
                 })
                     .then(() => history.push("/animals"))
             } else {
@@ -56,9 +56,9 @@ export const AnimalForm = () => {
                 addAnimal({
                     name: animal.name,
                     breed: animal.breed,
-                    locationId: locationId,
-                    treatment: animal.treatment,
-                    customerId: parseInt(localStorage.getItem("kennel_customer"))
+                    location_id: location_id,
+                    status: animal.status,
+                    customer_id: parseInt(localStorage.getItem("kennel_customer"))
                 })
                     .then(() => history.push("/animals"))
             }
@@ -90,8 +90,8 @@ export const AnimalForm = () => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="locationId">Location: </label>
-                    <select name="locationId" className="form-control"
+                    <label htmlFor="location_id">Location: </label>
+                    <select name="location_id" className="form-control"
                         value={animal.location_id}
                         onChange={handleControlledInputChange}>
 
@@ -108,9 +108,9 @@ export const AnimalForm = () => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="treatment">Treatments: </label>
-                    <textarea type="text" name="treatment" className="form-control"
-                        value={animal.treatment}
+                    <label htmlFor="status">status: </label>
+                    <textarea type="text" name="status" className="form-control"
+                        value={animal.status}
                         onChange={handleControlledInputChange}>
                     </textarea>
                 </div>

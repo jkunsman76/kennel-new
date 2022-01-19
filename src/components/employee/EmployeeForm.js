@@ -7,6 +7,7 @@ import "./Employees.css"
 
 export const EmployeeForm = () => {
     const name = useRef(null)
+    const address = useRef(null)
     const location = useRef(null)
     const animal = useRef(null)
 
@@ -30,16 +31,17 @@ export const EmployeeForm = () => {
             can't just ask for the `.value` property directly,
             but rather `.current.value` now in React.
         */
-        const locationId = parseInt(location.current.value)
-        const animalId = parseInt(animal.current.value)
+        const location_id = parseInt(location.current.value)
+        const animal_id = parseInt(animal.current.value)
 
-        if (locationId === 0) {
+        if (location_id === 0) {
             window.alert("Please select a location")
         } else {
             addEmployee({
                 name: name.current.value,
-                locationId,
-                animalId
+                address: address.current.value,
+                location_id
+                
             })
             .then(() => history.push("/employees"))
         }
@@ -50,8 +52,14 @@ export const EmployeeForm = () => {
             <h2 className="employeeForm__title">New Employee</h2>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="employeeName">Employee name: </label>
-                    <input type="text" id="employeeName" ref={name} required autoFocus className="form-control" placeholder="Employee name" />
+                    <label htmlFor="employeeName">Employee Name: </label>
+                    <input type="text" id="employeeName" ref={name} required autoFocus className="form-control" placeholder="Employee Name" />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="employeeAddress">Employee Address: </label>
+                    <input type="text" id="employeeAddress" ref={address} required autoFocus className="form-control" placeholder="Employee Address" />
                 </div>
             </fieldset>
             <fieldset>

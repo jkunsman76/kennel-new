@@ -36,8 +36,8 @@ export const updateAnimal = animal => {
         .then(getAnimals)
 }
 
-export const releaseAnimal = (animalId) => {
-    return fetch(`http://localhost:8088/animals/${animalId}`, {
+export const releaseAnimal = (animal_id) => {
+    return fetch(`http://localhost:8088/animals/${animal_id}`, {
         method: "DELETE"
     })
         .then(getAnimals)
